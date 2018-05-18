@@ -1,0 +1,10 @@
+sudo: false
+language: python
+python:
+  - "3.6"
+  - "3.7-dev"
+install: "make init"
+# command to run tests
+script:
+  - make lint test
+cache: pip
