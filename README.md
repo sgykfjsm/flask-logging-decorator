@@ -1,5 +1,7 @@
 # flask-logging-decorator
 
+[![Build Status](https://travis-ci.org/sgykfjsm/flask-logging-decorator.svg?branch=master)](https://travis-ci.org/sgykfjsm/flask-logging-decorator)
+
 This is a deadly simple logging decorator for Flask. This is highly inspired by [canassa/flask-trace](https://github.com/canassa/flask-trace).
 
 ## Compatibility
@@ -34,7 +36,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return 'hello'
-    
+
 ...
 ```
 
