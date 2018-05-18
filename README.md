@@ -10,7 +10,9 @@ This is tested with Python3.6.5 and Flask1.0.2.
 
 ## Installation
 
+```bash
 pip install flask-logging-decorator
+```
 
 ## Run the test
 

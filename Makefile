@@ -19,7 +19,8 @@ test:
 publish:
 	$(PIPENV_RUN) pip install twine wheel --upgrade
 	$(PIPENV_RUN) python setup.py sdist bdist_wheel
-	$(PIPENV_RUN) twine upload --repository pypitest dist/*
+	@#$(PIPENV_RUN) twine upload --repository pypitest dist/*
+	$(PIPENV_RUN) twine upload dist/*
 	$(RM) -r build dist .egg flask_logging_decorator.egg-info
 
 clean:
