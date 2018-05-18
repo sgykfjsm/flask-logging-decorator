@@ -31,6 +31,6 @@ setup(
     ],
     keywords='flask logging decorator',
     py_modules=('flask-logging-decorator',),
-    extras_require={'dev': extras_require_dev, }
+    extras_require={'dev': extras_require_dev, },
     packages=['flask_logging_decorator']
     )

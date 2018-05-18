@@ -1,6 +1,5 @@
-SCRIPT_CMD = script -q /dev/null
 LANG = LANG=en_US.UTF-8
-PIPENV_RUN = $(LANG) $(SCRIPT_CMD) pipenv run
+PIPENV_RUN = $(LANG) pipenv run
 
 init:
 	pip install pipenv --upgrade
@@ -15,7 +14,7 @@ lint:
 	$(PIPENV_RUN) mypy flask_logging_decorator --follow-imports=skip --disallow-untyped-defs --disallow-incomplete-defs --check-untyped-defs --no-implicit-optional --strict-optional --show-error-context --ignore-missing-imports
 
 test:
-	$(LANG) $(SCRIPT_CMD) pipenv run python -m pytest -v
+	$(PIPENV_RUN) pipenv run python -m pytest -v
 
 publish:
 	$(PIPENV_RUN) pip install twine wheel --upgrade
