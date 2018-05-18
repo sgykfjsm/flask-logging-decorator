@@ -4,14 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-"e1839a8" = {path = ".", editable = true}
 
 [dev-packages]
 pytest = "*"
 pytest-mock = "*"
-flask = "*"
 "flake8" = "*"
 mypy = "*"
+flask = "*"
 
 [requires]
 python_version = "3.6"
