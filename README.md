@@ -6,7 +6,7 @@ This is a deadly simple logging decorator for Flask. This is highly inspired by 
 
 ## Compatibility
 
-This is tested with Python3.6.5 and Flask1.0.2.
+This is tested with Python3.5, 3.6 and Flask1.0.2.
 
 ## Installation
 

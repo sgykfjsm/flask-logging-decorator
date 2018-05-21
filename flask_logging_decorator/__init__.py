@@ -58,7 +58,7 @@ def trace(level: int=logging.NOTSET) -> Callable:
                     continue
 
                 v = '********' if k in {'password', 'secret'} else __r.repr(v).replace('"', "'")
-                traced_func_args.append(f'{k}={v}')
+                traced_func_args.append('{}={}'.format(k, v))
 
             from flask import request
 
@@ -66,7 +66,7 @@ def trace(level: int=logging.NOTSET) -> Callable:
             traced_request_args = []
             for k, v in request.args.items():
                 v = '********' if k in {'password', 'secret'} else __r.repr(v).replace('"', "'")
-                traced_request_args.append(f'{k}={v}')
+                traced_request_args.append('{}={}'.format(k, v))
 
             # Post values
             traced_post_values = []
@@ -75,16 +75,16 @@ def trace(level: int=logging.NOTSET) -> Callable:
                 if json_args is not None:
                     for k, v in json_args.items():
                         v = '********' if k in {'password', 'secret'} else __r.repr(v).replace('"', "'")
-                        traced_post_values.append(f'{k}={v}')
+                        traced_post_values.append('{}={}'.format(k, v))
                 else:
                     for k, v in request.form.items():
                         v = '********' if k in {'password', 'secret'} else __r.repr(v).replace('"', "'")
-                        traced_post_values.append(f'{k}={v}')
+                        traced_post_values.append('{}={}'.format(k, v))
 
             # Extra information
-            trace_info_list = [f'trace_pathname={inspect.getfile(f)}']
+            trace_info_list = ['trace_pathname={}'.format(inspect.getfile(f))]
             try:
-                trace_info_list.append(f'trace_lineno={inspect.getsourcelines(f)[1]}')
+                trace_info_list.append('trace_lineno={}'.format(inspect.getsourcelines(f)[1]))
             except IndexError:
                 pass
 
@@ -93,9 +93,8 @@ def trace(level: int=logging.NOTSET) -> Callable:
             query_args = ' '.join(traced_request_args)
             post_values = ' '.join(traced_post_values)
             trace_info = ' '.join(trace_info_list)
-            log(f'trace_uuid={trace_uuid} method={request.method} func_name={f.__name__}' +
-                f' func_args:{function_args} query_args:{query_args} post_values:{post_values}' +
-                f' trace_info:{trace_info}')
+            log('trace_uuid={} method={} func_name={} func_args:{} query_args:{} post_values:{} trace_info:{}'.format(
+                trace_uuid, request.method, f.__name__, function_args, query_args, post_values, trace_info))
 
             return f(*args, **kwargs)
 
