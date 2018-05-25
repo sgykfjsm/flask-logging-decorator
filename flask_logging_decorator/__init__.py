@@ -93,8 +93,8 @@ def trace(level: int=logging.NOTSET) -> Callable:
             query_args = ' '.join(traced_request_args)
             post_values = ' '.join(traced_post_values)
             trace_info = ' '.join(trace_info_list)
-            log('trace_uuid={} method={} func_name={} func_args:{} query_args:{} post_values:{} trace_info:{}'.format(
-                trace_uuid, request.method, f.__name__, function_args, query_args, post_values, trace_info))
+            log('trace_uuid={} endpoint={} method={} func_name={} func_args:{} query_args:{} post_values:{} trace_info:{}'.format(
+                trace_uuid, request.path, request.method, f.__name__, function_args, query_args, post_values, trace_info))
 
             return f(*args, **kwargs)
 

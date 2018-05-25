@@ -21,19 +21,19 @@ def values() -> Dict:
 
 @pytest.fixture
 def get_expected() -> List[str]:
-    return ['ERROR', 'trace_uuid=', 'method=GET', 'func_name=fake_handler', 'func_args: ',
+    return ['ERROR', 'trace_uuid=', 'endpoint=/foo/bar', 'method=GET', 'func_name=fake_handler', 'func_args: ',
             "query_args:key1='value1' key2='value2'", 'post_values:', 'trace_info:trace_pathname=']
 
 
 @pytest.fixture
 def post_expected() -> List[str]:
-    return ['ERROR', 'trace_uuid=', 'method=POST', 'func_name=fake_handler', 'func_args: ',
+    return ['ERROR', 'trace_uuid=', 'endpoint=/foo/bar', 'method=POST', 'func_name=fake_handler', 'func_args: ',
             'query_args: ', "post_values:key1='value1' key2='value2'", 'trace_info:trace_pathname=']
 
 
 @pytest.fixture
 def put_expected() -> List[str]:
-    return ['ERROR', 'trace_uuid=', 'method=PUT', 'func_name=fake_handler', 'func_args: ',
+    return ['ERROR', 'trace_uuid=', 'endpoint=/foo/bar', 'method=PUT', 'func_name=fake_handler', 'func_args: ',
             'query_args: ', "post_values:key1='value1' key2='value2'", 'trace_info:trace_pathname=']
 
 
@@ -48,6 +48,7 @@ def test_get_parameter_logging(
     mock_request.args = {}
     mock_request.form = {}
     mock_request.json = None
+    mock_request.path = '/foo/bar'
 
     expected = get_expected
     if method == 'GET':
