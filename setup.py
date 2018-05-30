@@ -17,7 +17,7 @@ with open(join(here, 'requirement_dev.txt'), encoding='utf-8') as f:
 
 setup(
     name='flask_logging_decorator',
-    version='0.0.3',
+    version='0.0.4',
     description='Simple logging decorator for Flask.',
     long_description=long_description,
     long_description_content_type='text/markdown',

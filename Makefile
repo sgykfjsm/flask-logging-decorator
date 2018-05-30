@@ -14,7 +14,7 @@ lint:
 	$(PIPENV_RUN) mypy flask_logging_decorator --follow-imports=skip --disallow-untyped-defs --disallow-incomplete-defs --check-untyped-defs --no-implicit-optional --strict-optional --show-error-context --ignore-missing-imports
 
 test:
-	$(PIPENV_RUN) pipenv run python -m pytest -v
+	$(PIPENV_RUN) python -m pytest -v
 
 publish:
 	$(PIPENV_RUN) pip install twine wheel --upgrade

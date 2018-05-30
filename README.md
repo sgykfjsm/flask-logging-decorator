@@ -48,7 +48,7 @@ The application should show the logging message like following.
 [2018-05-17 19:01:31,468] ERROR in __init__: trace_uuid=cf66d343-06f4-49cb-a680-59ba9ec77570 method=GET func_name=index func_args: query_args:foo='bar' baz='qux' post_values: trace_info:trace_pathname=main.py trace_lineno=12
 ```
 
-Note that don't forget to pass the log level argument. You have to pass the appropriate logging level. Otherwise, this decorator never output any messages.
+If you don't pass the logging level to `@trace`, it will use the Flask's application logger.
 
 ## License
 
