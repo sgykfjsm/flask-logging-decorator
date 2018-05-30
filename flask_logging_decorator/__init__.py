@@ -1,6 +1,6 @@
 from functools import wraps
 import inspect
-import logging
+from logging import NOTSET, DEBUG, INFO, WARN, ERROR, CRITICAL
 from typing import Callable, List, Dict
 from reprlib import Repr
 from uuid import uuid4
@@ -22,31 +22,32 @@ def __get_trace_uuid() -> str:
     return g.trace_uuid
 
 
-def trace(level: int=logging.NOTSET) -> Callable:
-    # from pytest import set_trace; set_trace()
+def trace(level: int = NOTSET) -> Callable:
     def outer(f: Callable) -> Callable:
         @wraps(f)
         def wrapper(*args: List, **kwargs: Dict) -> Callable:
-            app_logger = None
-            log = None
-
+            _level = level
             try:
                 from flask import current_app
-                if current_app.logger.getEffectiveLevel() > level:
+                # If given level is default or negative value, I will use Flask's application logger.
+                if _level <= NOTSET:
+                    _level = current_app.logger.getEffectiveLevel()
+                elif current_app.logger.getEffectiveLevel() > _level:
                     return f(*args, **kwargs)
+
                 app_logger = current_app.logger
             except RuntimeError:
                 # If this decorator is called outside of the Flask application context,
                 # you should get away right now.
                 return f(*args, **kwargs)
 
-            if level <= logging.DEBUG:
+            if _level <= DEBUG:
                 log = app_logger.debug
-            elif logging.DEBUG < level <= logging.INFO:
+            elif DEBUG < _level <= INFO:
                 log = app_logger.info
-            elif logging.INFO < level <= logging.WARN:
+            elif INFO < _level <= WARN:
                 log = app_logger.warn
-            elif logging.WARN < level <= logging.ERROR:
+            elif WARN < _level <= ERROR:
                 log = app_logger.error
             else:
                 log = app_logger.critical
@@ -93,8 +94,9 @@ def trace(level: int=logging.NOTSET) -> Callable:
             query_args = ' '.join(traced_request_args)
             post_values = ' '.join(traced_post_values)
             trace_info = ' '.join(trace_info_list)
-            log('trace_uuid={} endpoint={} method={} func_name={} func_args:{} query_args:{} post_values:{} trace_info:{}'.format(
-                trace_uuid, request.path, request.method, f.__name__, function_args, query_args, post_values, trace_info))
+            log('trace_uuid={} endpoint={} method={} func_name={} func_args:{} query_args:{} post_values:{} '
+                'trace_info:{}'.format(trace_uuid, request.path, request.method, f.__name__, function_args,
+                                       query_args, post_values, trace_info))
 
             return f(*args, **kwargs)
 
