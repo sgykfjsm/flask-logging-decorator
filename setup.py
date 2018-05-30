@@ -9,15 +9,9 @@ long_description = ''
 with open(join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-extras_require_dev = []
-with open(join(here, 'requirement_dev.txt'), encoding='utf-8') as f:
-    for line in f.readlines():
-        if '==' in line:
-            extras_require_dev.append(line.split('==')[0])
-
 setup(
     name='flask_logging_decorator',
-    version='0.0.4',
+    version='0.0.5',
     description='Simple logging decorator for Flask.',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -31,6 +25,5 @@ setup(
     ],
     keywords='flask logging decorator',
     py_modules=('flask-logging-decorator',),
-    extras_require={'dev': extras_require_dev, },
     packages=['flask_logging_decorator']
     )
